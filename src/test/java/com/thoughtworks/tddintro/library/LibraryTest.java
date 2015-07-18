@@ -69,6 +69,8 @@ public class LibraryTest {
 
         verify(printStream, times(2)).println(stringArgumentCaptor.capture());
         List<String> argumentsToPrintLn = stringArgumentCaptor.getAllValues();
+
+        //Want to insure both titles are printed, order doesn't matter.
         assertEquals(true, argumentsToPrintLn.contains("Book One") && argumentsToPrintLn.contains("Book Two"));
         assertEquals(2, argumentsToPrintLn.size());
     }
