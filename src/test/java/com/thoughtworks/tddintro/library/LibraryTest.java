@@ -4,11 +4,14 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.contains;
 import static org.mockito.Mockito.*;
 
@@ -22,6 +25,11 @@ public class LibraryTest {
      */
     private List<String> books;
     private PrintStream printStream;
+
+    public LibraryTest() {
+        stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
+    }
+
 
     @Before
     public void constructBookList(){
@@ -49,10 +57,20 @@ public class LibraryTest {
         verify(printStream, never()).println();
     }
 
+    @Captor
+    ArgumentCaptor<String> stringArgumentCaptor;
+
     @Test
     public void shouldPrintBothBookTitlesWhenThereAreTwoBooks() {
+        books.add("Book One");
+        books.add("Book Two");
+        Library library = new Library(books, printStream, null);
+        library.listBooks();
 
-        // implement me
+        verify(printStream, times(2)).println(stringArgumentCaptor.capture());
+        List<String> argumentsToPrintLn = stringArgumentCaptor.getAllValues();
+        assertEquals(true, argumentsToPrintLn.contains("Book One") && argumentsToPrintLn.contains("Book Two"));
+        assertEquals(2, argumentsToPrintLn.size());
     }
 
     /*
