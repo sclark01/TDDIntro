@@ -8,8 +8,8 @@ public class AccountTests {
 
     private Account account;
 
-    private void createAccount(int amount){
-        account = new Account(amount);
+    private void createAccount(int startingBalance){
+        account = new Account(startingBalance);
     }
 
     @Test

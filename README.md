@@ -23,7 +23,7 @@ of TDD. Instead we’ll be focusing on the what and how.
 <a id="what-is-tdd"></a>
 ## What is TDD?
 
-TDD is the practice of writing a small amount of code (a unit test) that describes the new behavior you wish to add to
+TDD is the practice of writing a small balance of code (a unit test) that describes the new behavior you wish to add to
 your program before you implement the behavior itself.
 
 ### Unit Tests
