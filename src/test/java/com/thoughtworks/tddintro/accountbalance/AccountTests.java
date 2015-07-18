@@ -25,9 +25,11 @@ public class AccountTests {
         account.withdraw(50);
         assertEquals(50, account.checkBalance());
     }
-//
-//    @Test
-//    public void shouldNotDecreaseMyBalanceWhenIWithdrawMoneyAndDoNotHaveEnoughToCoverTheWithdrawal(){
-//
-//    }
+
+    @Test
+    public void shouldNotDecreaseMyBalanceWhenIWithdrawMoneyAndDoNotHaveEnoughToCoverTheWithdrawal(){
+        createAccount(50);
+        account.withdraw(100);
+        assertEquals(50, account.checkBalance());
+    }
 }
