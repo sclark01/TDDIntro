@@ -17,7 +17,7 @@ public class Account {
 
     public void withdraw(int withdrawalAmount){
         if(withdrawalAmount > balance){
-           return;
+           throw new InsufficientBalance("Withdrawal amount greater than available funds.");
         }
         balance -= withdrawalAmount;
     }
