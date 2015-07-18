@@ -2,6 +2,7 @@ package com.thoughtworks.tddintro.library;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.PrintStream;
@@ -21,12 +22,16 @@ public class LibraryTest {
         List books tests. Implement the first three tests for the Verify exercise
 
      */
+    private List<String> books;
 
+    @Before
+    public void constructBookList(){
+        books = new ArrayList<>();
+    }
 
     @Test
     public void shouldPrintBookTitleWhenThereIsOneBook() {
 
-        List<String> books = new ArrayList<>();
         String title = "Book Title";
         books.add(title);
         PrintStream printStream = mock(PrintStream.class);
