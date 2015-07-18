@@ -15,7 +15,7 @@ public class Account {
         return balance;
     }
 
-    public void withdraw(int i) {
-
+    public void withdraw(int withdrawalAmount) {
+        balance -= withdrawalAmount;
     }
 }
