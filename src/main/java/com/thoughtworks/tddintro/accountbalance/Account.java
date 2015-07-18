@@ -21,4 +21,16 @@ public class Account {
         }
         balance -= withdrawalAmount;
     }
+    protected class InsufficientBalance extends RuntimeException{
+        public InsufficientBalance(){}
+        public InsufficientBalance(String message){
+            super(message);
+        }
+        public InsufficientBalance(Throwable cause){
+            super(cause);
+        }
+        public InsufficientBalance(String message, Throwable cause){
+            super(message, cause);
+        }
+    }
 }
