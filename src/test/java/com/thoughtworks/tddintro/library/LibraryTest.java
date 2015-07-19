@@ -24,6 +24,8 @@ public class LibraryTest {
      */
     private List<String> books;
     private PrintStream printStream;
+    private DateTimeFormatter dateTimeFormatter;
+    private DateTime time;
 
     public LibraryTest() {
         stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
@@ -34,6 +36,8 @@ public class LibraryTest {
     public void constructBookList(){
         books = new ArrayList<>();
         printStream = mock(PrintStream.class);
+        dateTimeFormatter = mock(DateTimeFormatter.class);
+        time = new DateTime();
     }
 
     @Test
@@ -79,40 +83,21 @@ public class LibraryTest {
     // This one is done for you
     @Test
     public void shouldWelcomeUser() {
-        List<String> books = new ArrayList<>();
-        PrintStream printStream = mock(PrintStream.class);
-        DateTimeFormatter dateTimeFormatter = mock(DateTimeFormatter.class);
         Library library = new Library(books, printStream, dateTimeFormatter);
-
-        // We don't need to mock DateTime because it is a value object
-        // We can't mock it because it is a final class
-        DateTime time = new DateTime();
-        
         library.welcome(time);
-        
         verify(printStream).println(contains("Welcome"));
     }
 
     @Test
     public void shouldDisplayFormattedTimeWhenFormattedTimeIsAnEmptyString() {
-        List<String> books = new ArrayList<>();
-        PrintStream printStream = mock(PrintStream.class);
-        DateTime time = new DateTime();
-        DateTimeFormatter dateTimeFormatter = mock(DateTimeFormatter.class);
-
         when(dateTimeFormatter.print(time)).thenReturn("");
-
         Library library = new Library(books, printStream, dateTimeFormatter);
-
         library.welcome(time);
-
-        // add a verify here
+        verify(printStream).println(contains(""));
     }
 
     @Test
     public void shouldDisplayFormattedTimeWhenFormattedTimeIsNotEmpty() {
 
-        // implement me
-        // then move common test variables into a setup method
     }
 }
