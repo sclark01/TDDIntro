@@ -4,8 +4,6 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -26,10 +24,7 @@ public class LibraryTest {
     private PrintStream printStream;
     private DateTimeFormatter dateTimeFormatter;
     private DateTime time;
-
-    public LibraryTest() {
-        stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
-    }
+    private Library library;
 
 
     @Before
@@ -38,6 +33,7 @@ public class LibraryTest {
         printStream = mock(PrintStream.class);
         dateTimeFormatter = mock(DateTimeFormatter.class);
         time = new DateTime();
+        library = new Library(books, printStream, dateTimeFormatter);
     }
 
     @Test
@@ -45,7 +41,6 @@ public class LibraryTest {
 
         String title = "Book Title";
         books.add(title);
-
         Library library = new Library(books, printStream, null);
 
         library.listBooks();
@@ -56,19 +51,20 @@ public class LibraryTest {
     @Test
     public void shouldPrintNothingWhenThereAreNoBooks() {
         Library library = new Library(books, printStream, null);
+
         library.listBooks();
+
         verify(printStream, never()).println();
     }
-
-    @Captor
-    ArgumentCaptor<String> stringArgumentCaptor;
 
     @Test
     public void shouldPrintBothBookTitlesWhenThereAreTwoBooks() {
         books.add("Book One");
         books.add("Book Two");
         Library library = new Library(books, printStream, null);
+
         library.listBooks();
+
         verify(printStream).println("Book One");
         verify(printStream).println("Book Two");
     }
@@ -83,21 +79,24 @@ public class LibraryTest {
     // This one is done for you
     @Test
     public void shouldWelcomeUser() {
-        Library library = new Library(books, printStream, dateTimeFormatter);
         library.welcome(time);
+
         verify(printStream).println(contains("Welcome"));
     }
 
     @Test
     public void shouldDisplayFormattedTimeWhenFormattedTimeIsAnEmptyString() {
         when(dateTimeFormatter.print(time)).thenReturn("");
-        Library library = new Library(books, printStream, dateTimeFormatter);
         library.welcome(time);
+
         verify(printStream).println(contains(""));
     }
 
     @Test
     public void shouldDisplayFormattedTimeWhenFormattedTimeIsNotEmpty() {
+        when(dateTimeFormatter.print(time)).thenReturn("FormattedTime");
+        library.welcome(time);
 
+        verify(printStream).println(contains("FormattedTime"));
     }
 }
