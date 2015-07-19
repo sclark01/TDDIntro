@@ -11,7 +11,6 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.contains;
 import static org.mockito.Mockito.*;
 
@@ -66,13 +65,8 @@ public class LibraryTest {
         books.add("Book Two");
         Library library = new Library(books, printStream, null);
         library.listBooks();
-
-        verify(printStream, times(2)).println(stringArgumentCaptor.capture());
-        List<String> argumentsToPrintLn = stringArgumentCaptor.getAllValues();
-
-        //Want to insure both titles are printed, order doesn't matter.
-        assertEquals(true, argumentsToPrintLn.contains("Book One") && argumentsToPrintLn.contains("Book Two"));
-        assertEquals(2, argumentsToPrintLn.size());
+        verify(printStream).println("Book One");
+        verify(printStream).println("Book Two");
     }
 
     /*
