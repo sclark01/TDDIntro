@@ -27,15 +27,16 @@ public class AccountTests {
     }
 
     @Test(expected = Account.InsufficientBalance.class)
+    public void shouldThrowInsufficientBalanceExceptionWhenWithdrawingMoreMoneyThanIsInTheAccount(){
+        createAccount(50);
+        account.withdraw(100);
+    }
+
+    @Test(expected = Account.InsufficientBalance.class)
     public void shouldNotDecreaseMyBalanceWhenIWithdrawMoneyAndDoNotHaveEnoughToCoverTheWithdrawal(){
         createAccount(50);
         account.withdraw(100);
         assertEquals(50, account.checkBalance());
     }
 
-    @Test(expected = Account.InsufficientBalance.class)
-    public void shouldThrowInsufficientBalanceExceptionWhenWithdrawingMoreMoneyThanIsInTheAccount(){
-        createAccount(50);
-        account.withdraw(100);
-    }
 }
